@@ -219,7 +219,7 @@ HttpWebHooksPlatform.prototype = {
                   success : true,
                   currentState : cachedCurrentDoorState,
                   targetState : cachedTargetDoorState,
-                  obstruction : cachedObstructionDetected                  
+                  obstruction : cachedObstructionDetected
                 };
               }
               else if (accessory.type == "lockmechanism") {
@@ -249,8 +249,8 @@ HttpWebHooksPlatform.prototype = {
                   targetState : cachedLockTargetState
                 };
               }
-              
-              
+
+
               else if (accessory.type == "security") {
                 if (theUrlParams.currentstate != null) {
                   var cachedState = this.storage.getItemSync("http-webhook-current-security-state-" + accessoryId);
@@ -527,10 +527,10 @@ function HttpWebHookSwitchAccessory(log, switchConfig, storage) {
   this.name = switchConfig["name"];
   this.onURL = switchConfig["on_url"] || "";
   this.onMethod = switchConfig["on_method"] || "GET";
-  this.onBody = switchConfig["on_body"] || "";
+  this.onBody = switchConfig["on_body"] || {};
   this.offURL = switchConfig["off_url"] || "";
   this.offMethod = switchConfig["off_method"] || "GET";
-  this.offBody = switchConfig["off_body"] || "";
+  this.offBody = switchConfig["off_body"] || {};
   this.storage = storage;
 
   this.service = new Service.Switch(this.name);
@@ -556,7 +556,7 @@ HttpWebHookSwitchAccessory.prototype.setState = function(powerOn, callback, cont
   var urlToCall = this.onURL;
   var urlMethod = this.onMethod;
   var urlBody = this.onBody;
-  
+
   if (!powerOn) {
     urlToCall = this.offURL;
     urlMethod = this.offMethod;
@@ -945,9 +945,9 @@ function HttpWebHookGarageDoorOpenerAccessory(log, garageDoorOpenerConfig, stora
   this.name = garageDoorOpenerConfig["name"];
   this.type = "garagedooropener";
   this.setTargetDoorStateOpenURL = garageDoorOpenerConfig["open_url"] || "";
-  this.setTargetDoorStateOpenMethod = garageDoorOpenerConfig["open_method"] || "GET";  
+  this.setTargetDoorStateOpenMethod = garageDoorOpenerConfig["open_method"] || "GET";
   this.setTargetDoorStateCloseURL = garageDoorOpenerConfig["close_url"] || "";
-  this.setTargetDoorStateCloseMethod = garageDoorOpenerConfig["close_method"] || "GET";  
+  this.setTargetDoorStateCloseMethod = garageDoorOpenerConfig["close_method"] || "GET";
   this.storage = storage;
 
   this.service = new Service.GarageDoorOpener(this.name);
@@ -1045,9 +1045,9 @@ function HttpWebHookLockMechanismAccessory(log, lockMechanismOpenerConfig, stora
   this.name = lockMechanismOpenerConfig["name"];
   this.type = "lockmechanism";
   this.setLockTargetStateOpenURL = lockMechanismOpenerConfig["open_url"] || "";
-  this.setLockTargetStateOpenMethod = lockMechanismOpenerConfig["open_method"] || "GET";  
+  this.setLockTargetStateOpenMethod = lockMechanismOpenerConfig["open_method"] || "GET";
   this.setLockTargetStateCloseURL = lockMechanismOpenerConfig["close_url"] || "";
-  this.setLockTargetStateCloseMethod = lockMechanismOpenerConfig["close_method"] || "GET";  
+  this.setLockTargetStateCloseMethod = lockMechanismOpenerConfig["close_method"] || "GET";
   this.storage = storage;
 
   this.service = new Service.LockMechanism(this.name);
